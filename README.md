@@ -11,7 +11,7 @@
 
 ## <div id="run-this-repo">&rarr; Run this repo,</div>
 
- Clone this repo and follow the <a href="#start-fresh-project">`Start Fresh`</a> steps. you can skip `step 3` because, you have project files and folder no need to create again.
+ Clone this repo and follow the <a href="#start-fresh-project">`Start Fresh Project`</a> steps. you can skip `step 3` because, you have project files and folder no need to create again.
 
 ---
 
