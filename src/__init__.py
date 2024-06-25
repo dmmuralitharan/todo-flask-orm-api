@@ -12,7 +12,7 @@ def create_app():
     db.init_app(app)
     migrate = Migrate(app, db)
 
-    from src.routers.todo_route import bp
+    from src.routes.todo_route import bp
     app.register_blueprint(bp)
 
     return app
