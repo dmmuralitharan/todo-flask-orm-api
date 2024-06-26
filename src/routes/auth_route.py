@@ -10,3 +10,7 @@ def register():
 @auth_bp.route('/login', methods=['POST'])
 def login():
     return login_user_controller()
+
+@auth_bp.route('/logout', methods=['POST'])
+def user_logout():
+    return logout_user_controller()

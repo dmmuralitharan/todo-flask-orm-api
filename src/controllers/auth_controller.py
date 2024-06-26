@@ -1,8 +1,9 @@
-from flask import request, jsonify
+from flask import request,make_response, jsonify
 import bcrypt
 
 from src import db
 from src.models.user_model import User
+from src.utils.jwt_tokan_utils import generate_token
 
 def register_user_controller():
     data = request.get_json()
@@ -39,5 +40,9 @@ def login_user_controller():
 
     if not user or not bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
         return jsonify({"message": "Invalid credentials", "status": False}), 401
+    
+    token = generate_token(user.id)
+    return jsonify({"message": "Login successful","tokan": token, "status": True}), 200
 
-    return jsonify({"message": "Login successful", "status": True}), 200
+def logout_user_controller():
+    pass
