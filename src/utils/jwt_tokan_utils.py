@@ -2,6 +2,7 @@ from flask import current_app, request, jsonify
 from datetime import datetime, timedelta
 from functools import wraps
 from src.models.user_model import User
+import os
 import jwt
 
 def generate_token(user_id):
@@ -11,7 +12,8 @@ def generate_token(user_id):
             'iat': datetime.utcnow(),  
             'user_id': user_id 
         }
-        token = jwt.encode(payload, current_app.config["SECRET_KEY"], algorithm='HS256')
+        JWT_SECRET_KEY =  os.getenv('SECRET_KEY')
+        token = jwt.encode(payload, JWT_SECRET_KEY, algorithm='HS256')
         return token
     except Exception as e:
         return str(e)
@@ -31,7 +33,8 @@ def token_required(f):
             return jsonify({'message': 'token is missing'}), 401
 
         try:
-            tokan_data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=["HS256"])
+            JWT_SECRET_KEY =  os.getenv('SECRET_KEY')
+            tokan_data = jwt.decode(token, JWT_SECRET_KEY, algorithms=["HS256"])
             current_user = User.query.filter_by(id=tokan_data['user_id']).first()
         except jwt.ExpiredSignatureError:
             return jsonify({'error': 'Token has expired'}), 401

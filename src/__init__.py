@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+import os
 
 from dotenv import load_dotenv
 
@@ -13,7 +14,16 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
 
-    app.config.from_object('src.config.Config')
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+        "mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}".format(
+            DB_USER=os.getenv("DB_USER"),
+            DB_PASSWORD=os.getenv("DB_PASSWORD"),
+            DB_HOST=os.getenv("DB_HOST"),
+            DB_NAME=os.getenv("DB_NAME"),
+        )
+    )
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
     db.init_app(app)
     
     migrate = Migrate(app, db)

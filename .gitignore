@@ -1,5 +1,6 @@
 # Virtual environment
 venv/
+migrations/
 
 # Compiled Python files
 *.pyc
