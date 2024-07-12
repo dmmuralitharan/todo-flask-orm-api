@@ -23,11 +23,8 @@ def token_required(f):
     def decorated(*args, **kwargs):
         token = None
 
-        print( current_app.config['SECRET_KEY'])
-
         if 'Authorization' in request.headers:
             token = request.headers['Authorization'].split(" ")[1]
-            print(token)
 
         if not token:
             return jsonify({'message': 'token is missing'}), 401
