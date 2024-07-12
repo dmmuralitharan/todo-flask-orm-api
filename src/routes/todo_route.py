@@ -1,5 +1,6 @@
 from flask import Blueprint
 from src.controllers.todo_controller import get_todo_controller, get_todos_controller, add_todo_controller, update_todo_controller, delete_todo_controller
+
 from src.utils.jwt_token_utils import token_required
 
 todo_bp = Blueprint('todos', __name__, url_prefix='/todos')
